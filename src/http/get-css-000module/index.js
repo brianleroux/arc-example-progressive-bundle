@@ -7,7 +7,7 @@ const redirect = require('./302')
 const notfound = require('./404')
 const fatal = require('./500')
 
-exports.handler = async function http(req) {
+exports.handler = async function http (req) {
 
   let table = 'module-cache'
   let key = req.pathParameters.module
@@ -20,8 +20,8 @@ exports.handler = async function http(req) {
     // if the file is not found create it
     if (!cache) {
 
-      // look for the entry file being requested                              vVVv
-      let pathToFile = join(__dirname, 'node_modules', '@architect', 'views', 'js', key)
+      // look for the entry file being requested                              vVVVv
+      let pathToFile = join(__dirname, 'node_modules', '@architect', 'views', 'css', key)
       if (existsSync(pathToFile) === false)
         return notfound(key)
 
