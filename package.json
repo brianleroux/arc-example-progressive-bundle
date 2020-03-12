@@ -1,13 +1,11 @@
 {
   "scripts": {
     "start": "NODE_ENV=testing sandbox",
-    "lint": "eslint src --fix",
     "test": "NODE_ENV=testing tape test/*-test.js | tap-spec"
   },
   "dependencies": {
     "@architect/sandbox": "^1.7.2",
     "@begin/data": "^1.2.0",
-    "eslint": "^6.8.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.13.2"
   }
