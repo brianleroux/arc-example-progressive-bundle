@@ -12,7 +12,7 @@ get /js/:module
 get /css/:module
 
 # devtools
-get /debug/:module
+get /debug/:scope
 get /debug/:scope/:module
 get /cache
 post /cache

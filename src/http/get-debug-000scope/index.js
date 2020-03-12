@@ -8,7 +8,7 @@ const fatal = require('./500')
 exports.handler = async function http(req) {
   try {
     // requested entry module
-    let key = req.pathParameters.module
+    let key = req.pathParameters.scope
     let ext = extname(key).replace('.', '')
 
     // ensure css or js

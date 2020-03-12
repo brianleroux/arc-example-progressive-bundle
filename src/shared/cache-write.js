@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const aws = require('aws-sdk')
 
-module.exports = async function bundle({ name, source }) {
+module.exports = async function write({ name, source }) {
 
   // fingerprint it
   console.time('fingerprint')
