@@ -3,13 +3,14 @@ const precss = require('precss')
 const autoprefixer = require('autoprefixer')
 const cssnano  = require('cssnano')
 const tailwindcss = require('tailwindcss')
-const cache = require('@architect/shared/cache-file')
+const write = require('@architect/shared/cache-write')
+const path = require('@architect/shared/cache-path')
 
-module.exports = async function bundle(name) {
+module.exports = async function bundle({ name }) {
 
   console.time('bundle-css')
 
-  let raw = fs.readFileSync(name)
+  let raw = fs.readFileSync(path({ name }))
   let plugins = process.env.NODE_ENV === 'production'? [
     precss,
     tailwindcss,
@@ -22,5 +23,5 @@ module.exports = async function bundle(name) {
 
   console.timeEnd('bundle-css')
 
-  return cache({ name, source })
+  return write({ name, source })
 }

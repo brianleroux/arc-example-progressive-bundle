@@ -1,3 +1,4 @@
+const data = require('@begin/data')
 const crypto = require('crypto')
 const path = require('path')
 const fs = require('fs')
@@ -33,6 +34,14 @@ module.exports = async function bundle({ name, source }) {
     }).promise()
   }
   console.timeEnd('write') 
+
+  console.time('ddb-cache')
+  let table = 'module-cache'
+  let key = name
+  let file = fingerprint
+  let ttl = (Date.now() / 1000) + (60 * 60 * 24 * 7) // 1 week from now
+  await data.set({ table, key, file, ttl })
+  console.timeEnd('ddb-cache')
    
   return fingerprint
 }

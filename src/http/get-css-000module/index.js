@@ -1,41 +1,27 @@
-const { join } = require('path')
-const { existsSync } = require('fs')
-
-const data = require('@begin/data')
+const read = require('@architect/shared/cache-read')
 const bundle = require('./bundle')
 const redirect = require('./302')
 const notfound = require('./404')
 const fatal = require('./500')
 
-exports.handler = async function http (req) {
+exports.handler = async function http(req) {
 
-  let table = 'module-cache'
-  let key = req.pathParameters.module
-  let ttl = (Date.now() / 1000) + (60 * 60 * 24 * 7) // 1 week from now
+  let name = req.pathParameters.module
 
   try {
     // check the cache manifest
-    let cache = await data.get({ table, key })
+    let file = await read({ name })
 
-    // if the file is not found create it
-    if (!cache) {
+    // if the file is not found bundle it
+    if (!file) 
+      file = await bundle({ name })
 
-      // look for the entry file being requested                              vVVVv
-      let pathToFile = join(__dirname, 'node_modules', '@architect', 'views', 'css', key)
-      if (existsSync(pathToFile) === false)
-        return notfound(key)
-
-      // bundle to s3
-      let file = await bundle(pathToFile)
-
-      // save the name in the manifest
-      cache = await data.set({ table, key, file, ttl })
-    }
-
-    // redirect to the file we just wrote
-    return redirect(`/_static/${ cache.file }`)
+    // redirect to the file
+    return redirect(`/_static/${ file }`)
   }
   catch(err) {
+    if (err.name.startsWith('not_found'))
+      return notfound(name)
     return fatal(err)
   }
 }
