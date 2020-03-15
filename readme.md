@@ -3,11 +3,14 @@
 dynamic progressive bundle of frontend code
 
 - frontend source is in `src/views`
-- `get /` bundles html
-- `get /js/:module` bundles javascript entry files
-- `get /css/:module` bundles css entry files
+- `get /` returns home page
+- `get /modules/:type/:module` bundles javascript entry files
 
 bonus features
 
 - `get /cache` to view and clear the cache
-- add `?debug=1` to disable cache and view module waterfall
+
+usage
+
+- `npm start` to run with bundling enabled
+- `npm run debug` to run in debug mode to view module source and waterfall loading
