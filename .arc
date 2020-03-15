@@ -6,7 +6,6 @@ arc-example-progressive-bundle
 folder public
 
 @http
-# ?debug=1 to enable waterfall
 get /
 get /about
 get /modules/:type/:module
