@@ -7,13 +7,11 @@ folder public
 
 @http
 # ?debug=1 to enable waterfall
-get /            
-get /js/:module
-get /css/:module
+get /
+get /about
+get /modules/:type/:module
 
 # devtools
-get /debug/:scope
-get /debug/:scope/:module
 get /cache
 post /cache
 
