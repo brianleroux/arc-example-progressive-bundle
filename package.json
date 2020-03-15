@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "DEBUG=debug sandbox",
-    "start:bundle": "sandbox",
+    "start": "sandbox",
+    "debug": "DEBUG=debug sandbox",
     "test": "NODE_ENV=testing tape test/*-test.js | tap-spec"
   },
   "dependencies": {
