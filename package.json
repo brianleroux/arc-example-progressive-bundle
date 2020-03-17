@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "NODE_ENV=testing sandbox",
+    "start": "sandbox",
+    "debug": "DEBUG=debug sandbox",
     "test": "NODE_ENV=testing tape test/*-test.js | tap-spec"
   },
   "dependencies": {
@@ -8,5 +9,6 @@
     "@begin/data": "^1.2.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.13.2"
-  }
+  },
+  "version": "0.0.1"
 }

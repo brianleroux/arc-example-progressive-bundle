@@ -33,7 +33,7 @@ module.exports = async function write({ name, source }) {
       CacheControl: 'max-age=315360000',
     }).promise()
   }
-  console.timeEnd('write') 
+  console.timeEnd('write')
 
   console.time('ddb-cache')
   let table = 'module-cache'
@@ -42,6 +42,6 @@ module.exports = async function write({ name, source }) {
   let ttl = (Date.now() / 1000) + (60 * 60 * 24 * 7) // 1 week from now
   await data.set({ table, key, file, ttl })
   console.timeEnd('ddb-cache')
-   
+
   return fingerprint
 }

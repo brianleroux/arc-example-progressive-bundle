@@ -1,24 +1,20 @@
+# Warning! Do Not Edit
+# --------------------
+# This is a generated file and will be overwritten
+
 @app
-arc-example-progressive-bundle
+jump-nwl
 
 @static
-# use public for local dev (added to .gitignore)
 folder public
-
 @http
-# ?debug=1 to enable waterfall
-get /            
-get /js/:module
-get /css/:module
-
-# devtools
-get /debug/:scope
-get /debug/:scope/:module
+get /
+get /about
+get /modules/:type/:module
 get /cache
 post /cache
 
 @tables
-# use begin/data for the module cache
 data
   scopeID *String
   dataID **String
