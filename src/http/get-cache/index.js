@@ -5,7 +5,7 @@ exports.handler = async function http(req) {
   let files = await data.get({ table: 'module-cache' })
   let fmt = f=> `<li>${ f.key } &rarr; ${ f.file }</li>`
   let form = `<form method=post action=/cache><button>clear cache</button></form>`
-  let doc = `<div>${ form }</div><ul>${ files.map(fmt).join('') }</ul>`
+  let doc = `<a href=/>go back home</a><div>${ form }</div><ul>${ files.map(fmt).join('') }</ul>`
 
   return {
     headers: {

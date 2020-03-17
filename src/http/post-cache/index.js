@@ -6,7 +6,7 @@ exports.handler = async function invalidate() {
   let limit = 25 
 
   for await (let page of data.page({ table, limit }))
-    await data.destroy(page)
+    try { await data.destroy(page) } catch {}
 
   return {
     statusCode: 302,

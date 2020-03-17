@@ -1,12 +1,9 @@
-# Warning! Do Not Edit
-# --------------------
-# This is a generated file and will be overwritten
-
 @app
 jump-nwl
 
 @static
 folder public
+
 @http
 get /
 get /about

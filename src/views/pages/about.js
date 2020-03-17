@@ -1,4 +1,4 @@
-import { html } from '../vendor/preact.js'
+import { html, render } from '../vendor/preact.js'
 import Header from '../components/header.js'
 import Footer from '../components/footer.js'
 
@@ -14,3 +14,11 @@ export default function About() {
   `
 }
 
+if (typeof window !== 'undefined') {
+  let content = document.getElementById('root')
+  render(
+    html`<${About}><//>`,
+    content,
+    content.firstElementChild
+  )
+}

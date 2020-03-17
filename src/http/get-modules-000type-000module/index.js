@@ -6,6 +6,7 @@ const notfound = require('./404')
 const fatal = require('./500')
 
 exports.handler = async function http(req) {
+
   let type = req.pathParameters.type
   let module = req.pathParameters.module
   let name = `${type}/${module}`

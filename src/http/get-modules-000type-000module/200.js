@@ -11,7 +11,6 @@ module.exports = async function redirect(req) {
     'node_modules',
     '@architect',
     'views',
-    'modules',
     type,
     module
   )
