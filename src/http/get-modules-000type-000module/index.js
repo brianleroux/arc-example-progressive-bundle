@@ -1,4 +1,4 @@
-const read = require('@architect/shared/cache-read')
+const read = require('@architect/shared/cache/read')
 const bundle = require('./bundle')
 const waterfall = require('./200')
 const redirect = require('./302')
@@ -9,7 +9,7 @@ exports.handler = async function http(req) {
 
   let type = req.pathParameters.type
   let module = req.pathParameters.module
-  let name = `${type}/${module}`
+  let name = `${ type }/${ module }`
   let debug = process.env.DEBUG
 
   try {

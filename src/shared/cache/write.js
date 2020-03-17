@@ -4,6 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const aws = require('aws-sdk')
 
+/** write a module to the cache */
 module.exports = async function write({ name, source }) {
 
   // fingerprint it
@@ -18,7 +19,7 @@ module.exports = async function write({ name, source }) {
   // write local when running local
   console.time('write')
   if (process.env.NODE_ENV === 'testing') {
-    let pathToPublic = path.join(__dirname, '..', '..', '..', '..', '..', '..', 'public', fingerprint)
+    let pathToPublic = path.join(__dirname, '..', '..', '..', '..', '..', '..', '..', 'public', fingerprint)
     fs.writeFileSync(pathToPublic, source)
   }
   else {

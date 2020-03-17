@@ -1,6 +1,7 @@
 const { get } = require('@begin/data')
 
-module.exports = async function lookup(name) {
+/** get the entry file for the given page name */
+module.exports = async function lookup({ name }) {
 
   let debug = process.env.DEBUG
   let entry = `/modules/${ name }`

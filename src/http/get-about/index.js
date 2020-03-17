@@ -1,25 +1,11 @@
-require = require('esm')(module)
-const lookup = require('@architect/shared/entry-lookup.js')
-const HTML = require('@architect/views/document/html.js').default
-const renderToString = require('preact-render-to-string')
-const { html } = require('@architect/views/vendor/preact.js')
-const About = require('@architect/views/pages/about.js').default
+const render = require('@architect/views/ssr')
 
 /** plain 'ol lambda function */
 exports.handler = async function http(req) {
-  let name = 'pages/about.js'
-  let entry = await lookup(name)
-
   return {
-    statusCode: 200,
-    headers: { 'content-type': 'text/html; charset=utf8' },
-    body: HTML({
-        children: renderToString(
-          html`<${About}><//>`
-        ),
-        scripts: [ entry ]
-      }
-    )
+    headers: { 
+      'content-type': 'text/html; charset=utf8' 
+    },
+    body: await render('about')
   }
 }
-

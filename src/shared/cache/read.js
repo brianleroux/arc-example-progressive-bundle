@@ -2,8 +2,9 @@ const { join } = require('path')
 const { existsSync } = require('fs')
 
 const data = require('@begin/data')
-const path = require('./cache-path')
+const path = require('./path')
 
+/** returns the cached module or false if it has not been cached; throws on non existent entry files */
 module.exports = async function read({ name }) {
 
   // check the cache manifest
