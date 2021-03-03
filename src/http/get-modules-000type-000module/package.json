@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@begin/data": "^1.2.0",
-    "rollup": "^2.0.2"
-  }
-}

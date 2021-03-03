@@ -2,15 +2,16 @@
 
 dynamic progressive bundle of frontend code
 
-- frontend source is in `src/views`
-- `get /` returns home page
-- `get /modules/:type/:module` bundles javascript entry files
+uses s3 only
+uses esbuild for bundle
+uses native crypto for fingerprint
 
-bonus features
+- `get /_bundle/*` greedy bundles javascript entry files
 
-- `get /cache` to view and clear the cache
-
-usage
-
-- `npm start` to run with bundling enabled
-- `npm run debug` to run in debug mode to view module source and waterfall loading
+    - user requests /_bundle/foo/bar/baz.js
+    - check for the file in s3://mybucket/_bundle/manifest.json
+    - if it exists redirect to that (whatever the fingerprinted value is)
+    - if it does not exist 
+      - bundle/fingerprint the file
+      - put in s3://mybucket/_bundle
+      - write the s3://mybucket/_bundle/manifest.json entry

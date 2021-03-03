@@ -1,11 +1,14 @@
-const render = require('@architect/views/ssr')
-
-/** plain 'ol lambda function */
-exports.handler = async function http(req) {
+exports.handler = async function http () {
+  let html = `<doctype html>
+<html>
+heyo from the htmls
+<script type=module src=/_bundle/index.js></script>
+</html>`
   return {
-    headers: { 
-      'content-type': 'text/html; charset=utf8' 
+    statusCode: 200,
+    headers: {
+      'content-type': 'text/html; charset=utf8'
     },
-    body: await render('home')
+    body: html
   }
 }
