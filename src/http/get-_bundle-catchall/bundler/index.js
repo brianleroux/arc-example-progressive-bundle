@@ -6,7 +6,7 @@ module.exports = async function bundler (meta) {
 
   // waterfall / debug flow
   if (process.env.ARC_BUNDLE === 'waterfall')
-    return `/_static/${process.env.NODE_ENV === 'testing' ? meta : meta.file }`
+    return `/_static/${ meta.file }`
 
   // otherwise return file from sandbox or s3
   return process.env.NODE_ENV === 'testing' ? sandbox(meta) : s3(meta)

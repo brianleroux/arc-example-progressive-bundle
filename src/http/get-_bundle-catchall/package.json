@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@architect/inventory": "^1.2.3",
+    "rollup": "^2.40.0"
+  }
+}

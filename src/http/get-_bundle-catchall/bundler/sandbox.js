@@ -6,7 +6,7 @@ let fs = require('fs')
 let getFolder = require('../get-static-folder')
 
 /** implements progressive bundle locally */
-module.exports = async function sandbox (file) {
+module.exports = async function sandbox ({ file }) {
 
   // ensure public/_bundle/manifest.json
   let folder = await getFolder()

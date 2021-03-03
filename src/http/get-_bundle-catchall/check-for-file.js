@@ -7,16 +7,16 @@ let getFolder = require('./get-static-folder')
  * checks for file in static folder
  *
  * @typedef {Object} Result
- * @property {string} file - the requested file (eg. /foo.js0
+ * @property {string} file - the requested file (eg. /foo.js0)
  * @property {string?} _bundle - the bundled file path (eg. /foo-ea2.js)
  *
- * @returns {boolean | Result}
+ * @returns {false | Result}
  */
 module.exports = async function checkForFile (file) {
   if (process.env.NODE_ENV === 'testing') {
     // look for file in static folder on local disk
     let folder = await getFolder()
-    return fs.existsSync(path.join(folder, file)) ? file : false
+    return fs.existsSync(path.join(folder, file)) ? { file } : false
   }
   else {
     // look at live infa
