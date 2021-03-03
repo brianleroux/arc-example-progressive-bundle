@@ -1,9 +1,7 @@
-//let esbuild = require('esbuild-linux-32')
+let rollup = require('rollup')
 let aws = require('aws-sdk')
 let path = require('path')
 let crypto = require('crypto')
-let util = require('util')
-let exec = util.promisify(require('child_process').exec)
 let sync = require('./sync')
 
 /** implement progressive bundle with s3 */
@@ -24,31 +22,22 @@ module.exports = async function _s3 ({ file, _bundle }) {
 
   // bundle
   console.time('bundle')
-  let bin = path.join(process.cwd(), 'bundler', 'esbuild-linux-32', 'bin', 'esbuild')
-  const o = await exec(`${ bin } /tmp${ file } --bundle --outfile=/tmp/dist.js`)
-  console.log('stdout:', o.stdout);
-  console.error('stderr:', o.stderr);
-  console.log(o)
-  /*
-  let filePath = path.join('/tmp', file)
-  let source = esbuild.buildSync({
-    entryPoints: [ filePath ],
-    write: false,
-    outdir: 'out',
-  }).outputFiles[0].contents
-  */
+  let input = path.join('/tmp', file)
+  let bundle = await rollup.rollup({ input })
+  let bundled = await bundle.generate({ format: 'esm' })
+  let source = bundled.output[0].code
   console.timeEnd('bundle')
 
   // fingerprint
   console.time('fingerprint')
   let hash = crypto.createHash('sha1')
-  let source = fs.readFileSync(`/tmp/dist.js`)
   hash.update(source)
   let sha = hash.digest('hex').substr(0, 7)
   let parts = file.split('/')
   let last = parts.pop()
+  parts.unshift('dist')
   let [ filename, extension ] = last.split('.')
-  let fingerprint = `dist/${ parts.join('/') }/${ filename }-${ sha }.${ extension }`
+  let fingerprint = `${ parts.filter(Boolean).join('/') }/${ filename }-${ sha }.${ extension }`
   _bundle = `/_static/${ fingerprint }`
   console.timeEnd('fingerprint')
 
@@ -59,13 +48,16 @@ module.exports = async function _s3 ({ file, _bundle }) {
     s3.putObject({
       Bucket,
       Key: fingerprint,
+      ACL: 'public-read',
+      ContentType: 'application/javascript',
+      CacheControl: 'max-age=315360000',
       Body: source
     }).promise(),
     // update the metadata to orig file on s3
-    s3.copyObject({
+    s3.putObject({
       Bucket,
-      Key: file,
-      CopySource: file,
+      Key: file.substring(1),
+      ContentType: 'application/javascript',
       Metadata: { _bundle }
     }).promise(),
   ])

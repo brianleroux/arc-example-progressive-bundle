@@ -1,4 +1,4 @@
-let esbuild = require('esbuild') // note! this will fallback to root...
+let rollup = require('rollup')
 let crypto = require('crypto')
 let path = require('path')
 let fs = require('fs')
@@ -24,12 +24,10 @@ module.exports = async function sandbox (file) {
 
     // bundle
     console.time('bundle')
-    let filePath = path.join(folder, file)
-    let source = esbuild.buildSync({
-      entryPoints: [ filePath ],
-      write: false,
-      outdir: 'out',
-    }).outputFiles[0].contents
+    let input = path.join(folder, file)
+    let bundle = await rollup.rollup({ input })
+    let bundled = await bundle.generate({ format: 'esm' })
+    let source = bundled.output[0].code
     console.timeEnd('bundle')
 
     // fingerprint

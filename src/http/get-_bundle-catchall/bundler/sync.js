@@ -18,7 +18,6 @@ async function sync (params) {
   // read from s3 and write to /tmp
   for (let { Key } of result.Contents) {
     if (Key.startsWith('dist') === false) {
-      console.log('writing to tmp', Key)
       let result = await s3.getObject({ Bucket, Key }).promise()
       fs.writeFileSync(`/tmp/${Key}`, result.Body)
     }

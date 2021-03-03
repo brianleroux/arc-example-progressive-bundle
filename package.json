@@ -1,6 +1,9 @@
 {
   "arc": {
     "app": "prog-bundle",
+    "static": {
+      "ignore": ["public/dist"]
+    },
     "http": [
       [
         "get",
@@ -27,8 +30,8 @@
     "@architect/eslint-config": "^1.0.0",
     "@architect/inventory": "^1.2.3",
     "@architect/sandbox": "^3.3.7",
-    "esbuild": "^0.8.54",
     "eslint": "^7.21.0",
+    "rollup": "^2.40.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.13.2"
   }
