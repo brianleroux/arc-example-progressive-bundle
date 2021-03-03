@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "rm -rf public/dist && sandbox",
+    "start:debug": "rm -rf public/dist && ARC_BUNDLE=waterfall sandbox",
     "lint": "eslint --fix src",
     "test": "npm run lint && tape test/*-test.js | tap-spec"
   },
