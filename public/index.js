@@ -1,4 +1,4 @@
 import { a } from './a.js'
 
-a('hiiii')
+a('hi shawn sup!')
 console.log('hi from index.js 🔥')
