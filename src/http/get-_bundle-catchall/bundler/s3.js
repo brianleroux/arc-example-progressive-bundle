@@ -37,8 +37,8 @@ module.exports = async function _s3 ({ file, _bundle }) {
   let last = parts.pop()
   parts.unshift('dist')
   let [ filename, extension ] = last.split('.')
-  let fingerprint = `${ parts.filter(Boolean).join('/') }/${ filename }-${ sha }.${ extension }`
-  _bundle = `/_static/${ fingerprint }`
+  let fingerprint = `${parts.filter(Boolean).join('/')}/${filename}-${sha}.${extension}`
+  _bundle = `/_static/${fingerprint}`
   console.timeEnd('fingerprint')
 
   console.time('write')
