@@ -12,6 +12,17 @@ exports.handler = async function http (req) {
   // its worth noting we KNOW this variable exists because of IaC
   let requestedFile = req.requestContext.http.path.replace('/_bundle', '')
 
+  // allow query param debug
+  let debugging = !!(req?.queryStringParameters?.arc_waterfall)
+  if (debugging) {
+    return { 
+      statusCode: 303, 
+      headers: { 
+        location: `/_static/${requestedFile}` 
+      } 
+    }
+  }
+
   try {
     // check the file exists at all in /public
     let exists = await checkForFile(requestedFile)

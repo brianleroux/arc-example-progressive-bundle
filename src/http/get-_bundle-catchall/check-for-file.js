@@ -7,7 +7,7 @@ let getFolder = require('./get-static-folder')
  * checks for file in static folder
  *
  * @typedef {Object} Result
- * @property {string} file - the requested file (eg. /foo.js0)
+ * @property {string} file - the requested file (eg. /foo.js)
  * @property {string?} _bundle - the bundled file path (eg. /foo-ea2.js)
  *
  * @returns {false | Result}

@@ -1,17 +1,23 @@
 # progressive bundle demo
 
-dynamic progressive bundle of frontend code
+Automatically bundle esmodules in `/public`.
 
-uses s3 only
-uses esbuild for bundle
-uses native crypto for fingerprint
+## Usage    
 
-- `get /_bundle/*` greedy bundles javascript entry files
+Example `app.arc`; enable bundling by declaring the `bundle` folder for build output:
 
-    - user requests /_bundle/foo/bar/baz.js
-    - check for the file in s3://mybucket/_bundle/manifest.json
-    - if it exists redirect to that (whatever the fingerprinted value is)
-    - if it does not exist 
-      - bundle/fingerprint the file
-      - put in s3://mybucket/_bundle
-      - write the s3://mybucket/_bundle/manifest.json entry
+```arc
+@app
+myapp
+
+@static
+bundle dist # this puts bundle output locally in public/dist and in s3://static-bucket/dist when deployed
+entry index.js # pre bundle file(s) at deploy time for max speeds
+```
+
+# todo
+
+- [ ] add `src/http/get-index/get-bundle` to `@architect/functions`
+- [ ] investigate using internal dynamo table locally to hide local manifest.json fugly
+- [ ] speed up sync
+- [ ] is many buckets possible? (seems no because local dev)
