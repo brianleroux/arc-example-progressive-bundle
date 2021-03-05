@@ -13,13 +13,13 @@ exports.handler = async function http (req) {
   let requestedFile = req.requestContext.http.path.replace('/_bundle', '')
 
   // allow query param debug
-  let debugging = !!(req?.queryStringParameters?.arc_waterfall)
+  let debugging = !!(req.queryStringParameters && req.queryStringParameters.arc_waterfall)
   if (debugging) {
-    return { 
-      statusCode: 303, 
-      headers: { 
-        location: `/_static/${requestedFile}` 
-      } 
+    return {
+      statusCode: 303,
+      headers: {
+        location: `/_static/${requestedFile}`
+      }
     }
   }
 

@@ -1,10 +1,11 @@
 let inventory = require('@architect/inventory')
 let path = require('path')
+let fs = require('fs')
 let aws = require('aws-sdk')
 
 // ask s3 if it has the entry file metadata value _bundle
 module.exports = async function bundled (value) {
- 
+
   let s3 = new aws.S3
   let Bucket = process.env.ARC_STATIC_BUCKET
   let Key = value.substring(1)
@@ -33,7 +34,7 @@ module.exports = async function bundled (value) {
     console.error(e)
   }
 
-  return `/_bundle${ value }`
+  return `/_bundle${value}`
 }
 
 /** get absolute path to static folder */

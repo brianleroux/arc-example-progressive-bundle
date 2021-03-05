@@ -11,7 +11,7 @@ exports.handler = async function http () {
 <body>
 heyo from the htmls
 </body>
-<script type=module src=${ entry }></script>
+<script type=module src=${entry}></script>
 </html>`
 
   return {
