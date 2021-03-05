@@ -4,13 +4,15 @@ let path = require('path')
 let fs = require('fs')
 
 let getFolder = require('../get-static-folder')
+let getDist = require('../get-static-bundle')
 
 /** implements progressive bundle locally */
 module.exports = async function sandbox ({ file }) {
 
   // ensure public/_bundle/manifest.json
+  let dist = await getDist()
   let folder = await getFolder()
-  let manifestBase = path.join(folder, 'dist')
+  let manifestBase = dist.path
   let manifestPath = path.join(manifestBase, 'manifest.json')
   let exists = fs.existsSync(manifestPath)
   if (exists === false) {
@@ -43,9 +45,9 @@ module.exports = async function sandbox ({ file }) {
 
     // write file and update manifest.json
     console.time('write')
-    manifest[file] = `/_static/dist${fingerprint}`
+    manifest[file] = `/_static/${dist.value}${fingerprint}`
     fs.writeFileSync(manifestPath, JSON.stringify(manifest))
-    fs.writeFileSync(path.join(folder, 'dist', fingerprint), source)
+    fs.writeFileSync(path.join(dist.path, fingerprint), source)
     console.timeEnd('write')
   }
 

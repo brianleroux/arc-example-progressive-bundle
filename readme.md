@@ -2,7 +2,7 @@
 
 Automatically bundle esmodules in `/public`.
 
-## Usage    
+## Usage proposal    
 
 Example `app.arc`; enable bundling by declaring the `bundle` folder for build output:
 
@@ -11,12 +11,13 @@ Example `app.arc`; enable bundling by declaring the `bundle` folder for build ou
 myapp
 
 @static
-bundle dist # this puts bundle output locally in public/dist and in s3://static-bucket/dist when deployed
+bundle dist # currently in this app a default value; but think if we build in this would be the toggle 'on'
 entry index.js # pre bundle file(s) at deploy time for max speeds
 ```
 
 # todo
 
+- [ ] prebundle macro discuss
 - [ ] add `src/http/get-index/get-bundle` to `@architect/functions`
 - [ ] investigate using internal dynamo table locally to hide local manifest.json fugly
 - [ ] speed up sync

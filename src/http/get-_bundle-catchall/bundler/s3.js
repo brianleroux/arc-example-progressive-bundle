@@ -3,6 +3,7 @@ let aws = require('aws-sdk')
 let path = require('path')
 let crypto = require('crypto')
 let sync = require('./sync')
+let getDist = require('../get-static-bundle')
 
 /** implement progressive bundle with s3 */
 module.exports = async function _s3 ({ file, _bundle }) {
@@ -14,6 +15,7 @@ module.exports = async function _s3 ({ file, _bundle }) {
     return _bundle
 
   let Bucket = process.env.ARC_STATIC_BUCKET
+  let dist = await getDist()
 
   // the key _bundle does not exist so we need ALL the files to bundle..
   console.time('sync')
@@ -35,7 +37,7 @@ module.exports = async function _s3 ({ file, _bundle }) {
   let sha = hash.digest('hex').substr(0, 7)
   let parts = file.split('/')
   let last = parts.pop()
-  parts.unshift('dist')
+  parts.unshift(dist.value)
   let [ filename, extension ] = last.split('.')
   let fingerprint = `${parts.filter(Boolean).join('/')}/${filename}-${sha}.${extension}`
   _bundle = `/_static/${fingerprint}`
